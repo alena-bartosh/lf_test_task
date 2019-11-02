@@ -28,3 +28,23 @@ $ python3 -m unittest discover tests
 ```
 $ python3 main.py
 ```
+
+### Time of execution of requests
+(service should be ran)
+```
+$ ./requests_time.sh
+```
+On my laptop (Intel® Core™ i5-7200U CPU @ 2.50GHz × 4) I have the following results (only total time) for maximum coverage of test data:
+```
+/elapsed_time
+0,003847s
+
+/rows_per_second
+0,006226s
+
+/rows_per_thread
+0,039862s
+
+/thread_per_second
+0,555200s
+```
