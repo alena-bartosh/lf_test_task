@@ -21,7 +21,8 @@ def get_int_value_from_get_parameter(param_name):
 
 
 def handle_value_error(f):
-    @wraps(f)
+    """Decorator to catch exceptions in inner function """
+    @wraps(f)  # returns decorator with name of f(). it is needed to correct Flask endpoint registration
     def decorator():
         try:
             return f()
