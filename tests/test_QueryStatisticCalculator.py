@@ -82,6 +82,16 @@ class QueryStatisticCalculatorTestCase(unittest.TestCase):
             QueryStatisticCalculatorTestCase.FINISH_TIMESTAMP_IN_TEST_DATA)
         self.assertAlmostEqual(5, average_row_count_per_thread)
 
+    def test_average_thread_per_second_is_calculated_correctly(self):
+        df = pd.read_csv('tests/queries_sample.tsv', sep='\t')
+
+        query_statistic_calculator = QueryStatisticCalculator(df)
+
+        average_thread_per_second = query_statistic_calculator.get_average_thread_per_second(
+            QueryStatisticCalculatorTestCase.START_TIMESTAMP_IN_TEST_DATA,
+            QueryStatisticCalculatorTestCase.FINISH_TIMESTAMP_IN_TEST_DATA)
+        self.assertAlmostEqual(0.0087, average_thread_per_second, places=4)
+
 
 if __name__ == '__main__':
     unittest.main()

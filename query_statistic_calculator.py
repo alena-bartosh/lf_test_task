@@ -143,7 +143,11 @@ class QueryStatisticCalculator:
         """
         self.check_timestamps_in_df(start_timestamp, finish_timestamp)
 
-        data_by_range = self.df_queries.loc[(self.df_queries['start'] >= start_timestamp) &
-                                            (self.df_queries['finish'] <= finish_timestamp)]
-        # TODO доделать
-        return 0
+        queries_in_range = self.df_queries.loc[(self.df_queries['start'] >= start_timestamp) &
+                                               (self.df_queries['finish'] <= finish_timestamp)]
+
+        threads_count_column = queries_in_range.apply(lambda row: len(row.threads.split(',')), axis=1)
+        elapsed_time = (finish_timestamp - start_timestamp)
+
+        return ((queries_in_range.finish - queries_in_range.start) * threads_count_column).sum() / elapsed_time \
+               / TimestampConverter.MILLISECONDS_PER_SECOND
