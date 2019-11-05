@@ -2,7 +2,6 @@ from datetime import datetime, timezone
 
 
 class TimestampConverter:
-    MICROSECONDS_PER_MILLISECOND = 1000
     MILLISECONDS_PER_SECOND = 1000
     MILLISECONDS_PER_MINUTES = 60 * MILLISECONDS_PER_SECOND
     MILLISECONDS_PER_HOURS = 60 * MILLISECONDS_PER_MINUTES
@@ -10,13 +9,8 @@ class TimestampConverter:
 
     @staticmethod
     def get_datetime_from_timestamp(timestamp_with_milliseconds):
-        milliseconds = timestamp_with_milliseconds % TimestampConverter.MILLISECONDS_PER_SECOND
-        timestamp = timestamp_with_milliseconds // TimestampConverter.MILLISECONDS_PER_SECOND
-
-        dt = datetime.fromtimestamp(timestamp, tz=timezone.utc)
-        dt = dt.replace(microsecond=int(milliseconds * TimestampConverter.MICROSECONDS_PER_MILLISECOND))
-
-        return dt
+        return datetime.fromtimestamp(timestamp_with_milliseconds / TimestampConverter.MILLISECONDS_PER_SECOND,
+                                      tz=timezone.utc)
 
     @staticmethod
     def get_timestamp_from_datetime(dt):
