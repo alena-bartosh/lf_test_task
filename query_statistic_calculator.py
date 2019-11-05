@@ -122,15 +122,12 @@ class QueryStatisticCalculator:
 
         queries_in_range = self.df_queries.loc[(self.df_queries['start'] >= start_timestamp) &
                                                (self.df_queries['finish'] <= finish_timestamp)]
-        threads = set()
+        threads_count = queries_in_range.threads.str.split(',').str.len().sum()
 
-        for threads_as_str in queries_in_range.threads:
-            threads.update(threads_as_str.split(','))
-
-        if not threads:
+        if threads_count == 0:
             return 0
 
-        return queries_in_range.rows.sum() / len(threads)
+        return queries_in_range.rows.sum() / threads_count
 
     def get_average_thread_per_second(self, start_timestamp, finish_timestamp):
         """Gets average per second number of threads executing at the same time during certain time range
