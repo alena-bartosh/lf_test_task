@@ -14,13 +14,13 @@ class TimestampConverterTestCase(unittest.TestCase):
         with self.subTest(name='get datetime from timestamp with milliseconds'):
             dt = TimestampConverter.get_datetime_from_timestamp(timestamp_with_milliseconds)
 
-            self.assertEqual(2019, dt.date().year)
-            self.assertEqual(10, dt.date().month)
-            self.assertEqual(19, dt.date().day)
+            self.assertEqual(2019, dt.year)
+            self.assertEqual(10, dt.month)
+            self.assertEqual(19, dt.day)
 
-            self.assertEqual(1, dt.time().hour)
-            self.assertEqual(36, dt.time().minute)
-            self.assertEqual(39, dt.time().second)
+            self.assertEqual(1, dt.hour)
+            self.assertEqual(36, dt.minute)
+            self.assertEqual(39, dt.second)
             self.assertEqual(milliseconds * TimestampConverter.MICROSECONDS_PER_MILLISECOND, dt.time().microsecond)
 
         with self.subTest(name='get timestamp from datetime with milliseconds'):
@@ -37,14 +37,14 @@ class TimestampConverterTestCase(unittest.TestCase):
 
             new_dt = TimestampConverter.get_datetime_from_timestamp(timestamp_with_zeroed_time)
 
-            self.assertEqual(2019, new_dt.date().year)
-            self.assertEqual(10, new_dt.date().month)
-            self.assertEqual(19, new_dt.date().day)
+            self.assertEqual(2019, new_dt.year)
+            self.assertEqual(10, new_dt.month)
+            self.assertEqual(19, new_dt.day)
 
-            self.assertEqual(0, new_dt.time().hour)
-            self.assertEqual(0, new_dt.time().minute)
-            self.assertEqual(0, new_dt.time().second)
-            self.assertEqual(0, new_dt.time().microsecond)
+            self.assertEqual(0, new_dt.hour)
+            self.assertEqual(0, new_dt.minute)
+            self.assertEqual(0, new_dt.second)
+            self.assertEqual(0, new_dt.microsecond)
 
         with self.subTest(name='get timestamp plus one day'):
             timestamp_plus_one_day = TimestampConverter.get_timestamp_plus_one_day(timestamp_with_zeroed_time)
@@ -53,14 +53,14 @@ class TimestampConverterTestCase(unittest.TestCase):
 
             new_dt = TimestampConverter.get_datetime_from_timestamp(timestamp_plus_one_day)
 
-            self.assertEqual(2019, new_dt.date().year)
-            self.assertEqual(10, new_dt.date().month)
-            self.assertEqual(20, new_dt.date().day)
+            self.assertEqual(2019, new_dt.year)
+            self.assertEqual(10, new_dt.month)
+            self.assertEqual(20, new_dt.day)
 
-            self.assertEqual(0, new_dt.time().hour)
-            self.assertEqual(0, new_dt.time().minute)
-            self.assertEqual(0, new_dt.time().second)
-            self.assertEqual(0, new_dt.time().microsecond)
+            self.assertEqual(0, new_dt.hour)
+            self.assertEqual(0, new_dt.minute)
+            self.assertEqual(0, new_dt.second)
+            self.assertEqual(0, new_dt.microsecond)
 
 
 if __name__ == '__main__':
