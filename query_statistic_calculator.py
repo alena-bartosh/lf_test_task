@@ -146,7 +146,7 @@ class QueryStatisticCalculator:
         queries_in_range = self.df_queries.loc[(self.df_queries['start'] >= start_timestamp) &
                                                (self.df_queries['finish'] <= finish_timestamp)]
 
-        threads_count_column = queries_in_range.apply(lambda row: len(row.threads.split(',')), axis=1)
+        threads_count_column = queries_in_range.threads.str.split(',').str.len()
         elapsed_time = (finish_timestamp - start_timestamp)
 
         return ((queries_in_range.finish - queries_in_range.start) * threads_count_column).sum() / elapsed_time \
