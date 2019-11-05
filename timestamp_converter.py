@@ -20,7 +20,7 @@ class TimestampConverter:
 
     @staticmethod
     def get_timestamp_from_datetime(dt):
-        return dt.timestamp() * TimestampConverter.MILLISECONDS_PER_SECOND
+        return int(dt.timestamp() * TimestampConverter.MILLISECONDS_PER_SECOND)
 
     @staticmethod
     def get_timestamp_with_zeroed_time(timestamp_with_milliseconds):
@@ -38,4 +38,4 @@ class TimestampConverter:
 
     @staticmethod
     def get_timestamp_plus_one_day(timestamp_with_milliseconds):
-        return timestamp_with_milliseconds + TimestampConverter.MILLISECONDS_PER_DAY
+        return int(timestamp_with_milliseconds + TimestampConverter.MILLISECONDS_PER_DAY)
