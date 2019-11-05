@@ -31,10 +31,9 @@ class TimestampConverter:
         Returns:
              timestamp_with_milliseconds (int): timestamp of the start time of the day with milliseconds
         """
-        dt = TimestampConverter.get_datetime_from_timestamp(timestamp_with_milliseconds)
-        dt_with_start_time = dt.replace(hour=0, minute=0, second=0, microsecond=0)
+        timestamp_with_milliseconds -= timestamp_with_milliseconds % TimestampConverter.MILLISECONDS_PER_DAY
 
-        return TimestampConverter.get_timestamp_from_datetime(dt_with_start_time)
+        return timestamp_with_milliseconds
 
     @staticmethod
     def get_timestamp_plus_one_day(timestamp_with_milliseconds):
