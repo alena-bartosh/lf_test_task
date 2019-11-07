@@ -1,5 +1,7 @@
 import unittest
 from timestamp_converter import TimestampConverter
+from datetime import datetime
+from dateutil import tz
 
 
 class TimestampConverterTestCase(unittest.TestCase):
@@ -14,14 +16,9 @@ class TimestampConverterTestCase(unittest.TestCase):
         with self.subTest(name='get datetime from timestamp with milliseconds'):
             dt = TimestampConverter.get_datetime_from_timestamp(timestamp_with_milliseconds)
 
-            self.assertEqual(2019, dt.year)
-            self.assertEqual(10, dt.month)
-            self.assertEqual(19, dt.day)
-
-            self.assertEqual(1, dt.hour)
-            self.assertEqual(36, dt.minute)
-            self.assertEqual(39, dt.second)
-            self.assertEqual(milliseconds * TimestampConverter.MICROSECONDS_PER_MILLISECOND, dt.time().microsecond)
+            self.assertEqual(datetime(2019, 10, 19, 1, 36, 39,
+                                      milliseconds * TimestampConverter.MICROSECONDS_PER_MILLISECOND,
+                                      tzinfo=tz.tzutc()), dt)
 
         with self.subTest(name='get timestamp from datetime with milliseconds'):
             new_timestamp = TimestampConverter.get_timestamp_from_datetime(dt)
@@ -37,14 +34,7 @@ class TimestampConverterTestCase(unittest.TestCase):
 
             new_dt = TimestampConverter.get_datetime_from_timestamp(timestamp_with_zeroed_time)
 
-            self.assertEqual(2019, new_dt.year)
-            self.assertEqual(10, new_dt.month)
-            self.assertEqual(19, new_dt.day)
-
-            self.assertEqual(0, new_dt.hour)
-            self.assertEqual(0, new_dt.minute)
-            self.assertEqual(0, new_dt.second)
-            self.assertEqual(0, new_dt.microsecond)
+            self.assertEqual(datetime(2019, 10, 19, 0, 0, 0, 0, tzinfo=tz.tzutc()), new_dt)
 
         with self.subTest(name='get timestamp plus one day'):
             timestamp_plus_one_day = TimestampConverter.get_timestamp_plus_one_day(timestamp_with_zeroed_time)
@@ -53,14 +43,7 @@ class TimestampConverterTestCase(unittest.TestCase):
 
             new_dt = TimestampConverter.get_datetime_from_timestamp(timestamp_plus_one_day)
 
-            self.assertEqual(2019, new_dt.year)
-            self.assertEqual(10, new_dt.month)
-            self.assertEqual(20, new_dt.day)
-
-            self.assertEqual(0, new_dt.hour)
-            self.assertEqual(0, new_dt.minute)
-            self.assertEqual(0, new_dt.second)
-            self.assertEqual(0, new_dt.microsecond)
+            self.assertEqual(datetime(2019, 10, 20, 0, 0, 0, 0, tzinfo=tz.tzutc()), new_dt)
 
 
 if __name__ == '__main__':
