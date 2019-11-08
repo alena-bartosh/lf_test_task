@@ -28,8 +28,11 @@ def handle_value_error(f):
             return f()
         except ValueError as e:
             app.logger.error(f'[{e}] during [{request}] processing')
-
             abort(Response(f'Error! Wrong input. Exception message: [{e}]', status=400))
+
+        except Exception as e:
+            app.logger.error(f'[{e}] during [{request}] processing')
+            abort(Response(f'Unexpected error! Exception message: [{e}]', status=500))
 
     return decorator
 
