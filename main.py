@@ -15,7 +15,7 @@ def get_int_value_from_get_parameter(param_name):
     timestamp_with_milliseconds = request.args.get(param_name)
 
     if timestamp_with_milliseconds is None:
-        abort(Response(f'Error! "{param_name}" GET argument is required', status=400))
+        abort(Response(f'Error! "{param_name}" GET argument is required\n', status=400))
 
     return int(timestamp_with_milliseconds)
 
@@ -28,11 +28,11 @@ def handle_value_error(f):
             return f()
         except ValueError as e:
             app.logger.error(f'[{e}] during [{request}] processing')
-            abort(Response(f'Error! Wrong input. Exception message: [{e}]', status=400))
+            abort(Response(f'Error! Wrong input. Exception message: [{e}]\n', status=400))
 
         except Exception as e:
             app.logger.error(f'[{e}] during [{request}] processing')
-            abort(Response(f'Unexpected error! Exception message: [{e}]', status=500))
+            abort(Response(f'Unexpected error! Exception message: [{e}]\n', status=500))
 
     return decorator
 
@@ -52,7 +52,7 @@ def elapsed_time():
     dt = TimestampConverter.get_datetime_from_timestamp(timestamp)
 
     return f'The average elapsed time for all queries on {timestamp} ({dt:%d.%m.%Y}) ' \
-           f'is {average_elapsed_time:.3f} seconds'
+           f'is {average_elapsed_time:.3f} seconds\n'
 
 
 @app.route('/rows_per_second')
@@ -67,7 +67,7 @@ def number_of_rows_per_second():
 
     return f'The average per second number of rows returned from all queries ' \
            f'during {start_timestamp} ({dt_start}) and {finish_timestamp} ({dt_finish}) ' \
-           f'is {average_rows_per_second:.3f}'
+           f'is {average_rows_per_second:.3f}\n'
 
 
 @app.route('/rows_per_thread')
@@ -83,7 +83,7 @@ def number_of_rows_per_thread():
 
     return f'The average per thread number of rows returned from all queries ' \
            f'during {start_timestamp} ({dt_start}) and {finish_timestamp} ({dt_finish}) ' \
-           f'is {average_rows_per_thread:.3f}'
+           f'is {average_rows_per_thread:.3f}\n'
 
 
 @app.route('/thread_per_second')
@@ -99,7 +99,7 @@ def number_of_thread_per_second():
 
     return f'The average per second number of threads executing at the same ' \
            f'during {start_timestamp} ({dt_start}) and {finish_timestamp} ({dt_finish}) ' \
-           f'is {average_thread_per_second:.3f}'
+           f'is {average_thread_per_second:.3f}\n'
 
 
 if __name__ == '__main__':
